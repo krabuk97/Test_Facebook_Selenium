@@ -97,10 +97,25 @@ def find_person_and_send_message():
     message_field.send_keys(Keys.ENTER)
 
     time.sleep(2)
-    print("Test 3")
+    print("Test 4")
+
+
+def log_out_test():
+    # Oczekiwanie na pojawienie się przycisku menu profilu i jego kliknięcie
+    menu_button = WebDriverWait(driver, 5).until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, 'svg[aria-label="Twój profil"]'))
+    )
+    menu_button.click()
+    time.sleep(2)
+
+    # Oczekiwanie na pojawienie się przycisku wylogowania i jego kliknięcie
+    log_out = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//span[text()="Wyloguj się"]')))
+    log_out.click()
+    time.sleep(2)
 
 
 open_homepage_and_enter()
-#open_mypage_and_creat_news()
-#find_and_add_friend()
+open_mypage_and_creat_news()
+find_and_add_friend()
 find_person_and_send_message()
+log_out_test()
