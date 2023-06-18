@@ -9,7 +9,7 @@ driver = webdriver.Chrome()
 driver.maximize_window()
 
 
-def Open_HomePage_and_Enter():
+def open_homepage_and_enter():
     # Open the Facebook homepage
     driver.get("https://www.facebook.com/")
 
@@ -27,7 +27,7 @@ def Open_HomePage_and_Enter():
     print("Test 1")
 
 
-def Open_MyPage_And_Crear_News():
+def open_mypage_and_creat_news():
     # Open the user's profile page
     driver.get("https://www.facebook.com/profile.php?id=100093684337738")
 
@@ -51,6 +51,56 @@ def Open_MyPage_And_Crear_News():
     print("Test 2")
 
 
-Open_HomePage_and_Enter()
-Open_MyPage_And_Crear_News()
+def find_and_add_friend():
+    # Click on the "Friends" button
+    friends_button = WebDriverWait(driver, 5).until(
+        EC.element_to_be_clickable((By.XPATH, '//a[@aria-label="Znajomi"]'))
+    )
+    friends_button.click()
+    time.sleep(2)
 
+    # Click on the "Confirm" button to add the friend
+    accept_button = WebDriverWait(driver, 5).until(
+        EC.element_to_be_clickable((By.XPATH, '//button[contains(text(), "Potwierdź")]'))
+    )
+    accept_button.click()
+    time.sleep(2)
+
+    print("Test 3")
+
+
+def find_person_and_send_message():
+    # Search for a specific person
+    search = driver.find_element(By.CSS_SELECTOR, '.x1i10hfl.xggy1nq.x1s07b3s.x1kdt53j.x1yc453h.xhb22t3.xb5gni.xcj1dhv.x2s2ed0.xq33zh.xjyslct.xjbqb8w.x6umtig.x1b1mbwd.xaqea5y.xav7gou.xnwf7zb.x40j3uw.x1s7lred.x15gyhx8.x9f619.xzsf02u.xdl72j9.x1iyjqo2.xs83m0k.xjb2p0i.x6prxxf.xeuugli.x1a2a7pz.x1n2onr6.x15h3p50.xm7lytj.x1sxyh0.xdvlbce.xurb0ha.x1vqgdyp.xo6swyp.x1ad04t7.x1glnyev.x1ix68h3.x19gujb8')
+    search.send_keys('Ruslan Cheberdyn')
+    search.send_keys(Keys.RETURN)
+    time.sleep(2)
+
+    # Click on the profile of the found person
+    element = WebDriverWait(driver, 5).until(
+        EC.element_to_be_clickable((By.XPATH, '//a[@aria-label="Rusłan Cheberdyn"]'))
+    )
+    element.click()
+    time.sleep(2)
+
+    # Click on the "Send message" button
+    send_button = WebDriverWait(driver, 3).until(
+        EC.element_to_be_clickable((By.XPATH, '//div[@aria-label="Wyślij wiadomość"]'))
+    )
+    send_button.click()
+    time.sleep(2)
+
+    # Enter the message content and send it
+    message = "Test Selenium 2023!!!"
+    message_field = driver.find_element(By.XPATH, '//div[@aria-label="Wiadomość"]')
+    message_field.send_keys(message)
+    message_field.send_keys(Keys.ENTER)
+
+    time.sleep(2)
+    print("Test 3")
+
+
+open_homepage_and_enter()
+#open_mypage_and_creat_news()
+#find_and_add_friend()
+find_person_and_send_message()
